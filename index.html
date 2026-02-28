@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TARS – Tri-State Amateur Radio Society | W9OG</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0b1a2e;
+    --deep-blue: #132d4f;
+    --electric: #00d4aa;
+    --electric-dim: #00d4aa33;
+    --warm-gold: #f5c542;
+    --warm-gold-dim: #f5c54222;
+    --cream: #f8f5ef;
+    --light-gray: #e8e4dd;
+    --text-dark: #1a1a1a;
+    --text-muted: #5a6577;
+    --white: #ffffff;
+    --signal-red: #e74c3c;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-dark);
+    background: var(--cream);
+    overflow-x: hidden;
+    line-height: 1.65;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(11,26,46,0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.25); }
+  .nav-inner {
+    max-width: 1260px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 68px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none; color: var(--white);
+  }
+  .nav-brand .callsign {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.55rem; letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--electric), var(--warm-gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-brand .club-name {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2.5px;
+    color: rgba(255,255,255,0.55); font-weight: 500;
+  }
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.72); text-decoration: none;
+    font-size: 0.84rem; font-weight: 500; padding: 8px 14px;
+    border-radius: 8px; transition: all 0.2s; letter-spacing: 0.3px;
+  }
+  .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+  .nav-cta {
+    background: var(--electric) !important; color: var(--navy) !important;
+    font-weight: 600 !important; padding: 9px 20px !important;
+    border-radius: 50px !important;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,212,170,0.35); }
+  .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .mobile-toggle span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: 0.3s; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    background: var(--navy); position: relative; overflow: hidden;
+    padding-top: 68px;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(0,212,170,0.12), transparent),
+      radial-gradient(ellipse 60% 50% at 20% 70%, rgba(245,197,66,0.08), transparent);
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image:
+      linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  /* Animated signal waves */
+  .signal-rings {
+    position: absolute; right: -5%; top: 50%; transform: translateY(-50%);
+    width: 700px; height: 700px;
+  }
+  .signal-rings .ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(0,212,170,0.15);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    animation: pulse-ring 4s ease-out infinite;
+  }
+  .signal-rings .ring:nth-child(1) { width: 200px; height: 200px; animation-delay: 0s; }
+  .signal-rings .ring:nth-child(2) { width: 350px; height: 350px; animation-delay: 0.8s; }
+  .signal-rings .ring:nth-child(3) { width: 500px; height: 500px; animation-delay: 1.6s; }
+  .signal-rings .ring:nth-child(4) { width: 650px; height: 650px; animation-delay: 2.4s; }
+
+  @keyframes pulse-ring {
+    0% { opacity: 0; transform: translate(-50%,-50%) scale(0.8); }
+    30% { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%,-50%) scale(1.15); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2; max-width: 1260px;
+    margin: 0 auto; padding: 80px 32px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,212,170,0.1); border: 1px solid rgba(0,212,170,0.2);
+    border-radius: 50px; padding: 6px 18px 6px 10px;
+    font-size: 0.78rem; color: var(--electric); font-weight: 500;
+    margin-bottom: 28px; letter-spacing: 0.5px;
+    animation: fadeInUp 0.8s ease both;
+  }
+  .hero-badge .dot {
+    width: 8px; height: 8px; background: var(--electric);
+    border-radius: 50%; animation: blink 2s infinite;
+  }
+  @keyframes blink {
+    0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(3rem, 6vw, 5.2rem);
+    color: var(--white); line-height: 1.08;
+    max-width: 720px; margin-bottom: 24px;
+    animation: fadeInUp 0.8s 0.15s ease both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--electric), var(--warm-gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.12rem; color: rgba(255,255,255,0.6);
+    max-width: 520px; line-height: 1.7; margin-bottom: 40px;
+    animation: fadeInUp 0.8s 0.3s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    animation: fadeInUp 0.8s 0.45s ease both;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 30px; border-radius: 50px; font-weight: 600;
+    font-size: 0.92rem; text-decoration: none;
+    transition: all 0.25s; cursor: pointer; border: none;
+    letter-spacing: 0.2px;
+  }
+  .btn-primary {
+    background: var(--electric); color: var(--navy);
+    box-shadow: 0 4px 20px rgba(0,212,170,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,212,170,0.4); }
+  .btn-secondary {
+    background: rgba(255,255,255,0.08); color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.14); }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── QUICK STATS ── */
+  .stats-bar {
+    background: var(--white); border-bottom: 1px solid var(--light-gray);
+    position: relative; z-index: 3;
+  }
+  .stats-inner {
+    max-width: 1260px; margin: 0 auto; padding: 0 32px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+  }
+  .stat-item {
+    padding: 36px 20px; text-align: center;
+    border-right: 1px solid var(--light-gray);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.4rem; color: var(--navy); line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 0.8rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 32px; }
+  .section-inner { max-width: 1260px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 3px; color: var(--electric);
+    font-weight: 600; margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--navy); margin-bottom: 20px; line-height: 1.15;
+  }
+  .section-desc {
+    color: var(--text-muted); max-width: 560px;
+    font-size: 1.05rem; line-height: 1.7; margin-bottom: 48px;
+  }
+
+  /* ── ABOUT ── */
+  .about { background: var(--white); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    align-items: center;
+  }
+  .about-image {
+    background: var(--navy); border-radius: var(--radius);
+    aspect-ratio: 4/3; overflow: hidden; position: relative;
+  }
+  .about-image-inner {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(0,212,170,0.15), transparent 60%),
+      radial-gradient(ellipse at 70% 70%, rgba(245,197,66,0.1), transparent 50%),
+      var(--navy);
+  }
+  .about-image-inner .year-badge {
+    font-family: 'Instrument Serif', serif;
+    font-size: 5rem; color: var(--white); opacity: 0.12;
+    line-height: 1; letter-spacing: 3px;
+  }
+  .about-image-inner .tag {
+    font-size: 0.8rem; text-transform: uppercase;
+    letter-spacing: 4px; color: var(--electric);
+    font-weight: 600;
+  }
+  .about-features {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    margin-top: 36px;
+  }
+  .about-feat {
+    padding: 20px; border-radius: var(--radius-sm);
+    background: var(--cream);
+  }
+  .about-feat-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 12px; font-size: 1.1rem;
+  }
+  .about-feat-icon.green { background: var(--electric-dim); color: #00a882; }
+  .about-feat-icon.gold { background: var(--warm-gold-dim); color: #c49b20; }
+  .about-feat h4 { font-size: 0.92rem; margin-bottom: 4px; font-weight: 600; }
+  .about-feat p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+  /* ── ACTIVITIES CARDS ── */
+  .activities { background: var(--cream); }
+  .card-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .card {
+    background: var(--white); border-radius: var(--radius);
+    padding: 36px 30px; border: 1px solid var(--light-gray);
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: linear-gradient(90deg, var(--electric), var(--warm-gold));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .card:hover::before { transform: scaleX(1); }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+  .card-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 20px;
+  }
+  .card-icon.teal { background: rgba(0,212,170,0.1); }
+  .card-icon.gold { background: rgba(245,197,66,0.12); }
+  .card-icon.red { background: rgba(231,76,60,0.1); }
+  .card h3 { font-size: 1.15rem; margin-bottom: 10px; font-weight: 600; color: var(--navy); }
+  .card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+  /* ── REPEATERS ── */
+  .repeaters { background: var(--navy); color: var(--white); }
+  .repeaters .section-label { color: var(--warm-gold); }
+  .repeaters .section-title { color: var(--white); }
+  .repeaters .section-desc { color: rgba(255,255,255,0.55); }
+  .repeater-cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+  }
+  .repeater-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-sm); padding: 28px; transition: 0.3s;
+  }
+  .repeater-card:hover { background: rgba(255,255,255,0.08); }
+  .repeater-freq {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.8rem; color: var(--electric); margin-bottom: 4px;
+  }
+  .repeater-type {
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 2px; color: rgba(255,255,255,0.4);
+    margin-bottom: 14px; font-weight: 500;
+  }
+  .repeater-detail {
+    display: flex; justify-content: space-between;
+    padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.85rem;
+  }
+  .repeater-detail span:first-child { color: rgba(255,255,255,0.45); }
+  .repeater-detail span:last-child { color: rgba(255,255,255,0.85); font-weight: 500; }
+
+  /* ── NET BANNER ── */
+  .net-banner {
+    background: linear-gradient(135deg, var(--deep-blue), var(--navy));
+    padding: 0 32px;
+  }
+  .net-inner {
+    max-width: 1260px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 48px 0; gap: 40px; flex-wrap: wrap;
+  }
+  .net-info { flex: 1; min-width: 300px; }
+  .net-info h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.8rem; color: var(--white); margin-bottom: 8px;
+  }
+  .net-info p { color: rgba(255,255,255,0.55); font-size: 0.95rem; }
+  .net-schedule {
+    display: flex; gap: 24px; align-items: center;
+    background: rgba(255,255,255,0.05); border-radius: var(--radius-sm);
+    padding: 20px 28px; border: 1px solid rgba(255,255,255,0.08);
+  }
+  .net-day { text-align: center; }
+  .net-day .day {
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--warm-gold); font-weight: 600;
+  }
+  .net-day .time {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.6rem; color: var(--white);
+  }
+  .net-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); }
+  .net-freq {
+    font-size: 0.85rem; color: rgba(255,255,255,0.6);
+  }
+  .net-freq strong { color: var(--electric); font-weight: 600; }
+
+  /* ── NEWS ── */
+  .news { background: var(--white); }
+  .news-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+  }
+  .news-item {
+    border: 1px solid var(--light-gray); border-radius: var(--radius-sm);
+    padding: 24px; transition: 0.3s; text-decoration: none; color: inherit;
+    display: block;
+  }
+  .news-item:hover { border-color: var(--electric); transform: translateY(-2px); }
+  .news-date {
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--text-muted);
+    font-weight: 500; margin-bottom: 8px;
+  }
+  .news-item h4 { font-size: 1rem; color: var(--navy); font-weight: 600; margin-bottom: 6px; }
+  .news-item p { font-size: 0.85rem; color: var(--text-muted); }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--cream); padding: 100px 32px;
+    text-align: center;
+  }
+  .cta-box {
+    max-width: 700px; margin: 0 auto;
+    background: var(--navy); border-radius: 24px;
+    padding: 64px 48px; position: relative; overflow: hidden;
+  }
+  .cta-box::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(0,212,170,0.15), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(245,197,66,0.1), transparent 50%);
+  }
+  .cta-box * { position: relative; z-index: 1; }
+  .cta-box h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.4rem; color: var(--white); margin-bottom: 14px;
+  }
+  .cta-box p { color: rgba(255,255,255,0.6); margin-bottom: 32px; font-size: 1.05rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.5);
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-inner {
+    max-width: 1260px; margin: 0 auto; padding: 60px 32px 40px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+  }
+  .footer-brand .callsign {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.6rem; color: var(--white); margin-bottom: 8px;
+  }
+  .footer-brand p { font-size: 0.85rem; line-height: 1.65; max-width: 280px; }
+  .footer-col h5 {
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 2.5px; color: rgba(255,255,255,0.3);
+    margin-bottom: 16px; font-weight: 600;
+  }
+  .footer-col a {
+    display: block; color: rgba(255,255,255,0.55);
+    text-decoration: none; font-size: 0.88rem;
+    padding: 5px 0; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--electric); }
+  .footer-bottom {
+    max-width: 1260px; margin: 0 auto; padding: 20px 32px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.78rem;
+  }
+  .footer-socials { display: flex; gap: 12px; }
+  .footer-socials a {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(255,255,255,0.06); display: flex;
+    align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.5); text-decoration: none;
+    font-size: 0.85rem; transition: 0.2s;
+  }
+  .footer-socials a:hover { background: rgba(0,212,170,0.15); color: var(--electric); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .mobile-toggle { display: block; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .net-inner { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 600px) {
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    .stat-item { padding: 24px 16px; }
+    .stat-number { font-size: 1.8rem; }
+    .about-features { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .cta-box { padding: 40px 24px; }
+    .cta-box h2 { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAVIGATION ══ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <div>
+        <div class="callsign">W9OG</div>
+        <div class="club-name">Tri-State Amateur Radio</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#activities">Activities</a>
+      <a href="#repeaters">Repeaters</a>
+      <a href="#news">Newsletter</a>
+      <a href="http://www.hamtoberfest.com" target="_blank">HamtoberFest</a>
+      <a href="mailto:info@w9og.net" class="nav-cta">Join TARS</a>
+    </div>
+    <button class="mobile-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="signal-rings">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Net every Wednesday · 8 PM CT · 146.79 MHz
+    </div>
+    <h1>Connecting the <em>Tri-State</em> since 1947</h1>
+    <p class="hero-sub">
+      The Tri-State Amateur Radio Society brings together 80+ licensed operators
+      for emergency communications, community service, and the shared joy of ham radio
+      in the Evansville area.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:info@w9og.net" class="btn btn-primary">Get Involved →</a>
+      <a href="#about" class="btn btn-secondary">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS BAR ══ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-number">78+</div>
+      <div class="stat-label">Years Active</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">80+</div>
+      <div class="stat-label">Members</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Repeaters</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">501(c)(3)</div>
+      <div class="stat-label">Nonprofit</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <div class="section-label">About TARS</div>
+        <h2 class="section-title">More than a hobby — it's a community service</h2>
+        <p class="section-desc">
+          Founded February 6, 1947, TARS is an ARRL Special Service Club dedicated to
+          advancing amateur radio and serving the Evansville tri-state area through
+          emergency communications, public service events, and education.
+        </p>
+        <div class="about-features">
+          <div class="about-feat">
+            <div class="about-feat-icon green">🛰</div>
+            <h4>ARRL Affiliated</h4>
+            <p>Recognized Special Service Club with strong national ties</p>
+          </div>
+          <div class="about-feat">
+            <div class="about-feat-icon gold">📡</div>
+            <h4>Emergency Ready</h4>
+            <p>Active partnerships with Red Cross, NWS Skywarn, and local EMA</p>
+          </div>
+          <div class="about-feat">
+            <div class="about-feat-icon green">🎓</div>
+            <h4>Licensing Classes</h4>
+            <p>Regular classes and VE testing for new and upgrading hams</p>
+          </div>
+          <div class="about-feat">
+            <div class="about-feat-icon gold">🏆</div>
+            <h4>Field Day Champions</h4>
+            <p>4th nationally in 3A Battery category — and counting</p>
+          </div>
+        </div>
+      </div>
+      <div class="about-image">
+        <div class="about-image-inner">
+          <span class="year-badge">1947</span>
+          <span class="tag">Established</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ACTIVITIES ══ -->
+<section class="activities" id="activities">
+  <div class="section-inner">
+    <div class="section-label">What We Do</div>
+    <h2 class="section-title">On the air and in the community</h2>
+    <p class="section-desc">
+      From weekly nets to annual hamfests, TARS keeps the airwaves alive with
+      activity, learning, and camaraderie.
+    </p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon teal">📻</div>
+        <h3>Weekly Emergency Net</h3>
+        <p>Join the Tri-State Emergency Net every Wednesday at 8 PM CT on 146.79 MHz (PL 88.5). Stay connected, stay informed.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon gold">🎪</div>
+        <h3>HamtoberFest</h3>
+        <p>Our annual hamfest every October — swap equipment, attend forums, and connect with hams from across the region.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon red">⚡</div>
+        <h3>Field Day</h3>
+        <p>ARRL's premier operating event. TARS stations have earned top national rankings, including 4th place in the 3A Battery category.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon teal">🌪</div>
+        <h3>Skywarn Weather Spotting</h3>
+        <p>Working with the National Weather Service, our operators provide critical real-time severe weather data for public safety.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon gold">🎓</div>
+        <h3>License Testing & Classes</h3>
+        <p>Studying for your Technician, General, or Extra? We offer classes and coordinate VE testing sessions throughout the year.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon red">🤝</div>
+        <h3>Community Events</h3>
+        <p>From marathons to parades, TARS provides volunteer communications support for community events across the tri-state area.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NET BANNER ══ -->
+<div class="net-banner">
+  <div class="net-inner">
+    <div class="net-info">
+      <h3>Tri-State Emergency Net</h3>
+      <p>Check in weekly — all licensed operators welcome</p>
+    </div>
+    <div class="net-schedule">
+      <div class="net-day">
+        <div class="day">Every</div>
+        <div class="time">Wednesday</div>
+      </div>
+      <div class="net-divider"></div>
+      <div>
+        <div class="net-day">
+          <div class="day">Time</div>
+          <div class="time">8:00 PM CT</div>
+        </div>
+      </div>
+      <div class="net-divider"></div>
+      <div class="net-freq">
+        <strong>146.79 MHz</strong><br>PL 88.5
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REPEATERS ══ -->
+<section class="repeaters" id="repeaters">
+  <div class="section-inner">
+    <div class="section-label">Infrastructure</div>
+    <h2 class="section-title">Our repeater network</h2>
+    <p class="section-desc">
+      Wide-area coverage across the Tri-State region with analog and digital capabilities.
+    </p>
+    <div class="repeater-cards">
+      <div class="repeater-card">
+        <div class="repeater-freq">146.79 MHz</div>
+        <div class="repeater-type">Primary Analog Repeater</div>
+        <div class="repeater-detail"><span>PL Tone</span><span>88.5 Hz</span></div>
+        <div class="repeater-detail"><span>Coverage</span><span>Tri-State Wide Area</span></div>
+        <div class="repeater-detail"><span>Weekly Net</span><span>Wed 8 PM CT</span></div>
+      </div>
+      <div class="repeater-card">
+        <div class="repeater-freq">C4FM Digital</div>
+        <div class="repeater-type">Yaesu System Fusion</div>
+        <div class="repeater-detail"><span>Network</span><span>3 Evansville + 1 IL</span></div>
+        <div class="repeater-detail"><span>Mode</span><span>Yaesu C4FM / FM</span></div>
+        <div class="repeater-detail"><span>Status</span><span style="color:var(--electric);">● Active</span></div>
+      </div>
+      <div class="repeater-card">
+        <div class="repeater-freq">Burnt Prairie, IL</div>
+        <div class="repeater-type">Remote C4FM Repeater</div>
+        <div class="repeater-detail"><span>Mode</span><span>Yaesu C4FM</span></div>
+        <div class="repeater-detail"><span>Coverage</span><span>Southern Illinois</span></div>
+        <div class="repeater-detail"><span>Status</span><span style="color:var(--electric);">● Active</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEWS / NEWSLETTER ══ -->
+<section class="news" id="news">
+  <div class="section-inner">
+    <div class="section-label">Sparks Newsletter</div>
+    <h2 class="section-title">Latest from the shack</h2>
+    <p class="section-desc">
+      Stay current with TARS news, meeting recaps, and member stories in our monthly newsletter.
+    </p>
+    <div class="news-grid">
+      <a href="#" class="news-item">
+        <div class="news-date">February 2026</div>
+        <h4>February 2026 SPARKS</h4>
+        <p>Annual banquet recap, upcoming VE sessions, and winter operating highlights.</p>
+      </a>
+      <a href="#" class="news-item">
+        <div class="news-date">January 2026</div>
+        <h4>January 2026 SPARKS</h4>
+        <p>New year plans, Winter Field Day results, and member project spotlights.</p>
+      </a>
+      <a href="#" class="news-item">
+        <div class="news-date">December 2025</div>
+        <h4>December 2025 SPARKS</h4>
+        <p>Holiday gathering, year in review, and recognition of outstanding volunteers.</p>
+      </a>
+      <a href="#" class="news-item">
+        <div class="news-date">November 2025</div>
+        <h4>November 2025 SPARKS</h4>
+        <p>HamtoberFest recap, Skywarn season wrap-up, and upcoming programs.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="cta-section">
+  <div class="cta-box">
+    <h2>Ready to get on the air?</h2>
+    <p>Whether you're a seasoned operator or just curious about ham radio, TARS welcomes you. Join us at our next meeting — second Thursday of every month.</p>
+    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+      <a href="mailto:info@w9og.net" class="btn btn-primary">Contact Us →</a>
+      <a href="https://www.facebook.com/groups/TARSw9og" target="_blank" class="btn btn-secondary">Join on Facebook</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="callsign">W9OG</div>
+      <p>Tri-State Amateur Radio Society. Serving the Evansville tri-state area since 1947. ARRL Special Service Club &amp; 501(c)(3) nonprofit.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Club</h5>
+      <a href="#about">About Us</a>
+      <a href="#activities">Activities</a>
+      <a href="#repeaters">Repeaters</a>
+      <a href="#news">Newsletter</a>
+    </div>
+    <div class="footer-col">
+      <h5>Resources</h5>
+      <a href="http://www.hamtoberfest.com" target="_blank">HamtoberFest</a>
+      <a href="#">VE Testing</a>
+      <a href="#">TARS Files</a>
+      <a href="#">Mailing Lists</a>
+    </div>
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <a href="mailto:info@w9og.net">info@w9og.net</a>
+      <a href="https://www.facebook.com/groups/TARSw9og" target="_blank">Facebook Group</a>
+      <a href="#">Emergency Net: Wed 8PM</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Tri-State Amateur Radio Society. All rights reserved.</span>
+    <div class="footer-socials">
+      <a href="https://www.facebook.com/groups/TARSw9og" target="_blank" title="Facebook">f</a>
+      <a href="mailto:info@w9og.net" title="Email">✉</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+</script>
+</body>
+</html>

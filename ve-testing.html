@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VE Testing – TARS W9OG</title>
+<link rel="stylesheet" href="tars-shared.css">
+<style>
+  .requirements-section { background: var(--white); }
+  .req-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    margin-top: 32px;
+  }
+  .schedule-section { background: var(--cream); }
+  .session-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;
+  }
+  .session-card {
+    background: var(--white); border: 1px solid var(--light-gray);
+    border-radius: var(--radius-sm); padding: 22px 24px; transition: 0.3s;
+    text-decoration: none; color: inherit; display: block;
+  }
+  .session-card:hover { border-color: var(--electric); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .session-card.past { opacity: 0.5; }
+  .session-card.next { border-color: var(--electric); border-width: 2px; position: relative; }
+  .session-card.next::after {
+    content: 'NEXT SESSION'; position: absolute; top: -10px; right: 16px;
+    background: var(--electric); color: var(--navy); font-size: 0.6rem;
+    font-weight: 700; letter-spacing: 1.5px; padding: 3px 10px;
+    border-radius: 50px;
+  }
+  .session-date {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.3rem; color: var(--navy); margin-bottom: 4px;
+  }
+  .session-time { font-size: 0.82rem; color: var(--text-muted); }
+  .session-loc { font-size: 0.82rem; color: var(--text-muted); margin-top: 8px; }
+
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 12px 0; border-bottom: 1px solid var(--light-gray);
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 0.92rem; color: var(--text-dark);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .check {
+    width: 22px; height: 22px; min-width: 22px; border-radius: 6px;
+    background: var(--electric-dim); color: #00a882;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; margin-top: 1px;
+  }
+
+  .register-banner {
+    background: var(--navy); border-radius: var(--radius);
+    padding: 40px; display: flex; align-items: center;
+    justify-content: space-between; gap: 32px; flex-wrap: wrap;
+    margin-top: 40px; position: relative; overflow: hidden;
+  }
+  .register-banner::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 50%, rgba(0,212,170,0.12), transparent 50%);
+  }
+  .register-banner * { position: relative; z-index: 1; }
+  .register-banner h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem; color: var(--white);
+  }
+  .register-banner p { color: rgba(255,255,255,0.55); font-size: 0.92rem; margin-top: 4px; }
+
+  .fee-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--warm-gold-dim); border: 1px solid rgba(245,197,66,0.3);
+    border-radius: var(--radius-sm); padding: 12px 18px;
+  }
+  .fee-badge .amount {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.8rem; color: var(--warm-gold);
+  }
+  .fee-badge .label { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+  .fee-note { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div>
+        <div class="callsign">W9OG</div>
+        <div class="club-name">Tri-State Amateur Radio</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="repeaters.html">Repeaters</a>
+      <a href="ve-testing.html" class="active">VE Testing</a>
+      <a href="operating.html">Operating</a>
+      <a href="newsletter.html">Newsletter</a>
+      <a href="general-info.html">Info &amp; Officers</a>
+      <a href="mailto:info@w9og.net" class="nav-cta">Contact</a>
+    </div>
+    <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> → VE Testing</div>
+    <h1>ARRL <em>Ham Radio Exam</em> Sessions</h1>
+    <p class="page-subtitle">The TARS W9OG Volunteer Examiner Team provides ARRL amateur radio testing throughout the year at the Evansville Red Cross facility.</p>
+  </div>
+</div>
+
+<!-- ══ SCHEDULE ══ -->
+<section class="schedule-section">
+  <div class="section-inner">
+    <div class="section-label">2026–27 Schedule</div>
+    <h2 class="section-title">Upcoming exam sessions</h2>
+    <p class="section-desc">All sessions at the Evansville Red Cross, 29 S Stockwell Rd. Sessions begin at 9 AM Central Time. Pre-register at <a href="https://www.hamstudy.org" target="_blank" style="color:var(--electric);">HamStudy.org</a>.</p>
+
+    <div class="session-grid">
+      <div class="session-card past">
+        <div class="session-date">January 31, 2026</div>
+        <div class="session-time">9:00 AM Central</div>
+        <div class="session-loc">📍 Red Cross, 29 S Stockwell Rd</div>
+      </div>
+      <a href="https://ham.study/sessions/697e26e7ef01194a4ea936c0/1" target="_blank" class="session-card next">
+        <div class="session-date">February 28, 2026</div>
+        <div class="session-time">9:00 AM Central</div>
+        <div class="session-loc">📍 Red Cross, 29 S Stockwell Rd</div>
+      </a>
+      <div class="session-card">
+        <div class="session-date">March 28, 2026</div>
+        <div class="session-time">9:00 AM Central</div>
+        <div class="session-loc">📍 Red Cross, 29 S Stockwell Rd</div>
+      </div>
+      <div class="session-card">
+        <div class="session-date">April 25, 2026</div>
+        <div class="session-time">9:00 AM Central</div>
+        <div class="session-loc">📍 Red Cross, 29 S Stockwell Rd</div>
+      </div>
+      <div class="session-card">
+        <div class="session-date">June 13, 2026</div>
+        <div class="session-time">9:00 AM Central</div>
+        <div class="session-loc">📍 Red Cross, 29 S Stockwell Rd</div>
+      </div>
+      <div class="session-card">
+        <div class="session-date">July 25, 2026</div>
+        <div class="session-time">9:00 AM Central</div>
+        <div class="session-loc">📍 Red Cross, 29 S Stockwell Rd</div>
+      </div>
+      <div class="session-card">
+        <div class="session-date">August 29, 2026</div>
+        <div class="session-time">9:00 AM Central</div>
+        <div class="session-loc">📍 Red Cross, 29 S Stockwell Rd</div>
+      </div>
+      <div class="session-card">
+        <div class="session-date">September 26, 2026</div>
+        <div class="session-time">9:00 AM Central</div>
+        <div class="session-loc">📍 Red Cross, 29 S Stockwell Rd</div>
+      </div>
+      <div class="session-card">
+        <div class="session-date">December 5, 2026</div>
+        <div class="session-time">9:00 AM Central</div>
+        <div class="session-loc">📍 Red Cross, 29 S Stockwell Rd</div>
+      </div>
+      <div class="session-card">
+        <div class="session-date">January 30, 2027</div>
+        <div class="session-time">9:00 AM Central</div>
+        <div class="session-loc">📍 Red Cross, 29 S Stockwell Rd</div>
+      </div>
+    </div>
+
+    <div class="register-banner">
+      <div>
+        <h3>Pre-register online</h3>
+        <p>Register in advance at HamStudy.org. Walk-ins should arrive 30 minutes early.</p>
+      </div>
+      <div style="text-align:center;">
+        <div class="fee-badge">
+          <div>
+            <div class="amount">$15</div>
+            <div class="label">Testing Fee (Cash)</div>
+          </div>
+        </div>
+        <div class="fee-note">Under 18: $5</div>
+      </div>
+      <a href="https://www.hamstudy.org" target="_blank" class="btn btn-primary">Register at HamStudy.org →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REQUIREMENTS ══ -->
+<section class="requirements-section">
+  <div class="section-inner">
+    <div class="section-label">What to Bring</div>
+    <h2 class="section-title">Exam day checklist</h2>
+    <p class="section-desc">Whether you're testing for your first license or upgrading, here's everything you need.</p>
+
+    <div class="req-grid">
+      <div>
+        <ul class="checklist">
+          <li><span class="check">✓</span><span><strong>FCC FRN Number</strong> — All candidates must have a Federal Registration Number. Register at <a href="https://apps.fcc.gov/cores/userLogin.do" target="_blank" style="color:var(--electric);">FCC CORES</a> if you don't have one.</span></li>
+          <li><span class="check">✓</span><span><strong>Two forms of ID</strong> — One must bear a recent photograph (driver's license, passport, etc.)</span></li>
+          <li><span class="check">✓</span><span><strong>Testing fee: $15 cash</strong> — Under 18: $5. Cash only.</span></li>
+          <li><span class="check">✓</span><span><strong>Copy of current license</strong> — If upgrading, bring a copy of your existing license.</span></li>
+          <li><span class="check">✓</span><span><strong>Any CSCE documents</strong> — Original Credit for Successful Completion of Examination documents, if applicable.</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="info-box highlight">
+          <h3>Online Exams</h3>
+          <p>Exams are administered online using provided laptops. You may request to use a personal device (laptop, tablet, or smartphone), subject to VE Team approval and a device audit.</p>
+        </div>
+        <div class="info-box gold-highlight">
+          <h3>Need Your FRN?</h3>
+          <p>If you currently hold an FCC license, you already have an FRN. If not, register at the FCC CORES system — you'll be issued an FRN upon completing registration.</p>
+        </div>
+        <div class="info-box">
+          <h3>Questions?</h3>
+          <p>Contact the VE team at <a href="mailto:vetesting@w9og.net" style="color:var(--electric);">vetesting@w9og.net</a> for any questions about sessions, requirements, or registration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="callsign">W9OG</div>
+      <p>Tri-State Amateur Radio Society. Serving the Evansville tri-state area since 1947.</p>
+    </div>
+    <div class="footer-col"><h5>Club</h5><a href="about.html">About Us</a><a href="repeaters.html">Repeaters</a><a href="operating.html">Operating</a><a href="newsletter.html">Newsletter</a></div>
+    <div class="footer-col"><h5>Resources</h5><a href="http://www.hamtoberfest.com" target="_blank">HamtoberFest</a><a href="ve-testing.html">VE Testing</a><a href="files.html">TARS Files</a><a href="general-info.html">Officers &amp; Info</a></div>
+    <div class="footer-col"><h5>Connect</h5><a href="mailto:info@w9og.net">info@w9og.net</a><a href="https://www.facebook.com/groups/TARSw9og" target="_blank">Facebook Group</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Tri-State Amateur Radio Society. All rights reserved.</span>
+    <div class="footer-socials"><a href="https://www.facebook.com/groups/TARSw9og" target="_blank">f</a><a href="mailto:info@w9og.net">✉</a></div>
+  </div>
+</footer>
+</body>
+</html>

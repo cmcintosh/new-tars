@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPARKS Newsletter – TARS W9OG</title>
+<link rel="stylesheet" href="tars-shared.css">
+<style>
+  .newsletter-section { background: var(--white); }
+  .nl-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+  }
+  .nl-card {
+    background: var(--white); border: 1px solid var(--light-gray);
+    border-radius: var(--radius-sm); overflow: hidden;
+    transition: 0.3s; text-decoration: none; color: inherit; display: block;
+  }
+  .nl-card:hover { border-color: var(--electric); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.06); }
+  .nl-card.featured {
+    grid-column: 1 / -1;
+    display: grid; grid-template-columns: auto 1fr; gap: 0;
+  }
+  .nl-card-header {
+    background: var(--navy); padding: 28px;
+    display: flex; flex-direction: column; justify-content: center;
+    min-width: 200px;
+  }
+  .nl-card.featured .nl-card-header { min-width: 260px; }
+  .nl-month {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.6rem; color: var(--white); line-height: 1.2;
+  }
+  .nl-year { font-size: 0.75rem; color: var(--electric); font-weight: 600; letter-spacing: 2px; }
+  .nl-card-body { padding: 24px; }
+  .nl-card-body h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 6px; font-weight: 600; }
+  .nl-card-body p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+  .nl-badge-new {
+    display: inline-block; background: var(--electric); color: var(--navy);
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px;
+    padding: 3px 8px; border-radius: 50px; margin-bottom: 8px;
+  }
+
+  .subscribe-section {
+    background: var(--cream); text-align: center;
+  }
+  .subscribe-box {
+    max-width: 600px; margin: 0 auto;
+    background: var(--navy); border-radius: var(--radius);
+    padding: 48px 40px; position: relative; overflow: hidden;
+  }
+  .subscribe-box::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 40%, rgba(0,212,170,0.12), transparent 50%);
+  }
+  .subscribe-box * { position: relative; z-index: 1; }
+  .subscribe-box h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.8rem; color: var(--white); margin-bottom: 10px;
+  }
+  .subscribe-box p { color: rgba(255,255,255,0.55); margin-bottom: 24px; }
+
+  @media (max-width: 700px) {
+    .nl-card.featured { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div><div class="callsign">W9OG</div><div class="club-name">Tri-State Amateur Radio</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="repeaters.html">Repeaters</a>
+      <a href="ve-testing.html">VE Testing</a>
+      <a href="operating.html">Operating</a>
+      <a href="newsletter.html" class="active">Newsletter</a>
+      <a href="general-info.html">Info &amp; Officers</a>
+      <a href="mailto:info@w9og.net" class="nav-cta">Contact</a>
+    </div>
+    <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> → SPARKS Newsletter</div>
+    <h1>The <em>SPARKS</em> Newsletter</h1>
+    <p class="page-subtitle">TARS's monthly newsletter keeps members informed with club news, meeting recaps, technical articles, and upcoming events. Mailed to all members.</p>
+  </div>
+</div>
+
+<section class="newsletter-section">
+  <div class="section-inner">
+    <div class="section-label">Archive</div>
+    <h2 class="section-title">Recent issues</h2>
+    <p class="section-desc">Browse current and past issues of SPARKS. Click an issue to view or download the PDF.</p>
+
+    <div class="nl-grid">
+      <!-- Featured latest -->
+      <a href="#" class="nl-card featured">
+        <div class="nl-card-header">
+          <div class="nl-year">2026</div>
+          <div class="nl-month">February</div>
+        </div>
+        <div class="nl-card-body">
+          <span class="nl-badge-new">LATEST ISSUE</span>
+          <h3>February 2026 SPARKS</h3>
+          <p>Annual banquet coverage, upcoming VE testing sessions, winter operating activity highlights, and member news from across the tri-state area.</p>
+        </div>
+      </a>
+
+      <a href="#" class="nl-card">
+        <div class="nl-card-header">
+          <div class="nl-year">2026</div>
+          <div class="nl-month">January</div>
+        </div>
+        <div class="nl-card-body">
+          <h3>January 2026 SPARKS</h3>
+          <p>New year plans, Winter Field Day, and member project spotlights.</p>
+        </div>
+      </a>
+
+      <a href="#" class="nl-card">
+        <div class="nl-card-header">
+          <div class="nl-year">2025</div>
+          <div class="nl-month">December</div>
+        </div>
+        <div class="nl-card-body">
+          <h3>December 2025 SPARKS</h3>
+          <p>Holiday gathering, year in review, and volunteer recognition.</p>
+        </div>
+      </a>
+
+      <a href="#" class="nl-card">
+        <div class="nl-card-header">
+          <div class="nl-year">2025</div>
+          <div class="nl-month">November</div>
+        </div>
+        <div class="nl-card-body">
+          <h3>November 2025 SPARKS</h3>
+          <p>HamtoberFest recap and Skywarn season wrap-up.</p>
+        </div>
+      </a>
+
+      <a href="#" class="nl-card">
+        <div class="nl-card-header">
+          <div class="nl-year">2025</div>
+          <div class="nl-month">October</div>
+        </div>
+        <div class="nl-card-body">
+          <h3>October 2025 SPARKS</h3>
+          <p>HamtoberFest preview and fall operating events.</p>
+        </div>
+      </a>
+
+      <a href="#" class="nl-card">
+        <div class="nl-card-header">
+          <div class="nl-year">2025</div>
+          <div class="nl-month">September</div>
+        </div>
+        <div class="nl-card-body">
+          <h3>September 2025 SPARKS</h3>
+          <p>Fall programming preview and member updates.</p>
+        </div>
+      </a>
+
+      <a href="#" class="nl-card">
+        <div class="nl-card-header">
+          <div class="nl-year">2025</div>
+          <div class="nl-month">August</div>
+        </div>
+        <div class="nl-card-body">
+          <h3>August 2025 SPARKS</h3>
+          <p>Summer operating highlights and VE testing reminders.</p>
+        </div>
+      </a>
+
+      <a href="#" class="nl-card">
+        <div class="nl-card-header">
+          <div class="nl-year">2025</div>
+          <div class="nl-month">July</div>
+        </div>
+        <div class="nl-card-body">
+          <h3>July 2025 SPARKS</h3>
+          <p>Field Day results and summer activity reports.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="subscribe-section">
+  <div class="subscribe-box">
+    <h3>Never miss an issue</h3>
+    <p>SPARKS is mailed to all TARS members. Join the club to receive your copy each month, or follow us on Facebook for updates.</p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <a href="mailto:info@w9og.net" class="btn btn-primary">Join TARS →</a>
+      <a href="https://www.facebook.com/groups/TARSw9og" target="_blank" class="btn btn-secondary">Facebook Group</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="callsign">W9OG</div><p>Tri-State Amateur Radio Society. Serving the Evansville tri-state area since 1947.</p></div>
+    <div class="footer-col"><h5>Club</h5><a href="about.html">About Us</a><a href="repeaters.html">Repeaters</a><a href="operating.html">Operating</a><a href="newsletter.html">Newsletter</a></div>
+    <div class="footer-col"><h5>Resources</h5><a href="http://www.hamtoberfest.com" target="_blank">HamtoberFest</a><a href="ve-testing.html">VE Testing</a><a href="files.html">TARS Files</a><a href="general-info.html">Officers &amp; Info</a></div>
+    <div class="footer-col"><h5>Connect</h5><a href="mailto:info@w9og.net">info@w9og.net</a><a href="https://www.facebook.com/groups/TARSw9og" target="_blank">Facebook Group</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 Tri-State Amateur Radio Society. All rights reserved.</span><div class="footer-socials"><a href="https://www.facebook.com/groups/TARSw9og" target="_blank">f</a><a href="mailto:info@w9og.net">✉</a></div></div>
+</footer>
+</body>
+</html>

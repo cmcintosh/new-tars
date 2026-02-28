@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operating &amp; Special Events – TARS W9OG</title>
+<link rel="stylesheet" href="tars-shared.css">
+<style>
+  .events-section { background: var(--white); }
+  .event-cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;
+  }
+  .event-card {
+    background: var(--white); border: 1px solid var(--light-gray);
+    border-radius: var(--radius); overflow: hidden; transition: 0.3s;
+  }
+  .event-card:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(0,0,0,0.06); }
+  .event-card-header {
+    padding: 28px 28px 0;
+  }
+  .event-card-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 16px;
+  }
+  .event-card-icon.teal { background: rgba(0,212,170,0.1); }
+  .event-card-icon.gold { background: rgba(245,197,66,0.12); }
+  .event-card-icon.red { background: rgba(231,76,60,0.1); }
+  .event-card-icon.purple { background: rgba(139,92,246,0.1); }
+  .event-card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.4rem; color: var(--navy); margin-bottom: 8px;
+  }
+  .event-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; padding: 0 28px; }
+  .event-card-footer {
+    padding: 16px 28px 24px; display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .event-tag {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px;
+    padding: 4px 12px; border-radius: 50px; font-weight: 600;
+    background: var(--cream); color: var(--text-muted);
+  }
+
+  .special-events { background: var(--cream); }
+  .se-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;
+  }
+  .se-card {
+    background: var(--white); border: 1px solid var(--light-gray);
+    border-radius: var(--radius-sm); padding: 24px; transition: 0.3s;
+  }
+  .se-card:hover { border-color: var(--electric); }
+  .se-card h4 { font-size: 1rem; color: var(--navy); margin-bottom: 6px; font-weight: 600; }
+  .se-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+  .sig-section { background: var(--navy); color: var(--white); }
+  .sig-section .section-label { color: var(--warm-gold); }
+  .sig-section .section-title { color: var(--white); }
+  .sig-section .section-desc { color: rgba(255,255,255,0.5); }
+  .sig-cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;
+  }
+  .sig-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-sm); padding: 24px; transition: 0.3s;
+  }
+  .sig-card:hover { background: rgba(255,255,255,0.08); }
+  .sig-card h4 { font-size: 1.05rem; color: var(--white); margin-bottom: 6px; }
+  .sig-card p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .sig-card .sig-icon { font-size: 1.6rem; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div><div class="callsign">W9OG</div><div class="club-name">Tri-State Amateur Radio</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="repeaters.html">Repeaters</a>
+      <a href="ve-testing.html">VE Testing</a>
+      <a href="operating.html" class="active">Operating</a>
+      <a href="newsletter.html">Newsletter</a>
+      <a href="general-info.html">Info &amp; Officers</a>
+      <a href="mailto:info@w9og.net" class="nav-cta">Contact</a>
+    </div>
+    <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> → Operating &amp; Special Events</div>
+    <h1>Operating <em>Activities</em></h1>
+    <p class="page-subtitle">From Field Day to special event stations, TARS members stay active on the air year-round with contests, QSO parties, and community events.</p>
+  </div>
+</div>
+
+<!-- ══ MAJOR EVENTS ══ -->
+<section class="events-section">
+  <div class="section-inner">
+    <div class="section-label">Annual Events</div>
+    <h2 class="section-title">On the air with TARS</h2>
+    <p class="section-desc">Our major operating events bring members together for camaraderie, skill-building, and top-tier contest performance.</p>
+
+    <div class="event-cards">
+      <div class="event-card">
+        <div class="event-card-header">
+          <div class="event-card-icon teal">📡</div>
+          <h3>Field Day</h3>
+        </div>
+        <p>ARRL's premier annual emergency preparedness exercise. TARS operates a multi-station setup and has placed 4th nationally in the 3A Battery category. A great event for both experienced operators and newcomers to get hands-on experience.</p>
+        <div class="event-card-footer">
+          <span class="event-tag">June</span>
+          <span class="event-tag">ARRL Contest</span>
+          <span class="event-tag">All Welcome</span>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-card-header">
+          <div class="event-card-icon gold">❄️</div>
+          <h3>Winter Field Day</h3>
+        </div>
+        <p>Cold-weather operating event held in January. Setup, operate, and enjoy warm soup and camaraderie. A perfect complement to the summer event and great practice for winter emergency preparedness.</p>
+        <div class="event-card-footer">
+          <span class="event-tag">January</span>
+          <span class="event-tag">Contest</span>
+          <span class="event-tag">Outdoors</span>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-card-header">
+          <div class="event-card-icon red">🏁</div>
+          <h3>Indiana QSO Party</h3>
+        </div>
+        <p>Statewide contest with CW and SSB stations. TARS sets up a full operating location — a great opportunity for new hams to experience contesting with hands-on antenna and station setup.</p>
+        <div class="event-card-footer">
+          <span class="event-tag">May</span>
+          <span class="event-tag">State QSO Party</span>
+          <span class="event-tag">CW &amp; SSB</span>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-card-header">
+          <div class="event-card-icon purple">🎪</div>
+          <h3>HamtoberFest</h3>
+        </div>
+        <p>TARS's annual hamfest held every October. Swap meet, vendor tables, forums, prize drawings, and food. A highlight of the tri-state ham radio calendar.</p>
+        <div class="event-card-footer">
+          <span class="event-tag">October</span>
+          <span class="event-tag">Hamfest</span>
+          <span class="event-tag">Open to Public</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPECIAL EVENT STATIONS ══ -->
+<section class="special-events">
+  <div class="section-inner">
+    <div class="section-label">Special Event Stations</div>
+    <h2 class="section-title">On-air activations</h2>
+    <p class="section-desc">TARS participates in special event activations that celebrate history, community, and the amateur radio hobby.</p>
+
+    <div class="se-grid">
+      <div class="se-card">
+        <h4>Lincoln Special Event</h4>
+        <p>Commemorating Abraham Lincoln's connection to the tri-state area with a special on-air activation.</p>
+      </div>
+      <div class="se-card">
+        <h4>Audubon Special Event — W4A</h4>
+        <p>Celebrating the legacy of John James Audubon with special event operations under the W4A callsign.</p>
+      </div>
+      <div class="se-card">
+        <h4>Lewis &amp; Clark Trail on the Air</h4>
+        <p>W9OG is one of twenty activating stations across 16 states in the LCTOTA special event. All contacts uploaded to LoTW.</p>
+      </div>
+      <div class="se-card">
+        <h4>Indiana Parks on the Air</h4>
+        <p>Portable operations from Indiana state parks — combining the outdoors with amateur radio activations.</p>
+      </div>
+      <div class="se-card">
+        <h4>Boy Scout Jamboree on the Air</h4>
+        <p>Youth outreach event connecting scouts with amateur radio operators worldwide.</p>
+      </div>
+      <div class="se-card">
+        <h4>Annual Banquet</h4>
+        <p>February celebration featuring awards, guest speakers, and recognition of outstanding member contributions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPECIAL INTEREST GROUPS ══ -->
+<section class="sig-section">
+  <div class="section-inner">
+    <div class="section-label">Special Interest Groups</div>
+    <h2 class="section-title">Dive deeper</h2>
+    <p class="section-desc">TARS supports focused interest groups for members who want to explore specific aspects of amateur radio.</p>
+
+    <div class="sig-cards">
+      <div class="sig-card">
+        <div class="sig-icon">📦</div>
+        <h4>Packet Group</h4>
+        <p>Digital packet radio communications, BBS systems, and data networking over amateur frequencies.</p>
+      </div>
+      <div class="sig-card">
+        <div class="sig-icon">🔗</div>
+        <h4>HSMM MESH Group</h4>
+        <p>High-Speed Multimedia mesh networking for emergency and community communications infrastructure.</p>
+      </div>
+      <div class="sig-card">
+        <div class="sig-icon">📍</div>
+        <h4>APRS Group</h4>
+        <p>Automatic Packet Reporting System for real-time position tracking, weather stations, and tactical communication.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="callsign">W9OG</div><p>Tri-State Amateur Radio Society. Serving the Evansville tri-state area since 1947.</p></div>
+    <div class="footer-col"><h5>Club</h5><a href="about.html">About Us</a><a href="repeaters.html">Repeaters</a><a href="operating.html">Operating</a><a href="newsletter.html">Newsletter</a></div>
+    <div class="footer-col"><h5>Resources</h5><a href="http://www.hamtoberfest.com" target="_blank">HamtoberFest</a><a href="ve-testing.html">VE Testing</a><a href="files.html">TARS Files</a><a href="general-info.html">Officers &amp; Info</a></div>
+    <div class="footer-col"><h5>Connect</h5><a href="mailto:info@w9og.net">info@w9og.net</a><a href="https://www.facebook.com/groups/TARSw9og" target="_blank">Facebook Group</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 Tri-State Amateur Radio Society. All rights reserved.</span><div class="footer-socials"><a href="https://www.facebook.com/groups/TARSw9og" target="_blank">f</a><a href="mailto:info@w9og.net">✉</a></div></div>
+</footer>
+</body>
+</html>

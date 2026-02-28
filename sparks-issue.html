@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>February 2026 SPARKS – TARS W9OG</title>
+<link rel="stylesheet" href="tars-shared.css">
+<style>
+  /* ── ISSUE LAYOUT ── */
+  .issue-section { background: var(--white); }
+  .issue-layout {
+    display: grid; grid-template-columns: 1fr 360px; gap: 48px;
+    align-items: start;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .issue-content h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.6rem; color: var(--navy); margin-bottom: 16px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--light-gray);
+  }
+  .issue-content p {
+    font-size: 0.95rem; color: var(--text-dark); line-height: 1.75;
+    margin-bottom: 16px;
+  }
+  .issue-content a { color: var(--electric); text-decoration: none; font-weight: 500; }
+  .issue-content a:hover { text-decoration: underline; }
+
+  /* Highlight callouts */
+  .issue-callout {
+    background: linear-gradient(135deg, rgba(0,212,170,0.06), rgba(0,212,170,0.02));
+    border-left: 4px solid var(--electric);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 20px 24px; margin: 24px 0;
+  }
+  .issue-callout.gold {
+    background: linear-gradient(135deg, rgba(245,197,66,0.08), rgba(245,197,66,0.02));
+    border-left-color: var(--warm-gold);
+  }
+  .issue-callout.urgent {
+    background: linear-gradient(135deg, rgba(231,76,60,0.06), rgba(231,76,60,0.02));
+    border-left-color: var(--signal-red);
+  }
+  .issue-callout h4 {
+    font-size: 0.95rem; color: var(--navy); margin-bottom: 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .issue-callout p { margin-bottom: 0; font-size: 0.9rem; color: var(--text-muted); }
+
+  /* ── SIDEBAR ── */
+  .issue-sidebar { position: sticky; top: 88px; }
+
+  .sidebar-card {
+    background: var(--cream); border: 1px solid var(--light-gray);
+    border-radius: var(--radius-sm); padding: 24px; margin-bottom: 16px;
+  }
+  .sidebar-card h4 {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2.5px;
+    color: var(--electric); font-weight: 600; margin-bottom: 14px;
+  }
+
+  /* Attachments */
+  .attachment-list { list-style: none; padding: 0; }
+  .attachment-list li {
+    margin-bottom: 10px;
+  }
+  .attachment-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; background: var(--white); border: 1px solid var(--light-gray);
+    border-radius: 10px; text-decoration: none; color: inherit;
+    transition: all 0.2s;
+  }
+  .attachment-item:hover {
+    border-color: var(--electric); transform: translateX(3px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  }
+  .att-icon {
+    width: 40px; height: 40px; min-width: 40px;
+    border-radius: 10px; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .att-icon.pdf { background: rgba(231,76,60,0.1); }
+  .att-info { flex: 1; min-width: 0; }
+  .att-name {
+    font-size: 0.84rem; font-weight: 600; color: var(--navy);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .att-size { font-size: 0.72rem; color: var(--text-muted); }
+  .att-dl { color: var(--electric); font-size: 0.8rem; font-weight: 600; flex-shrink: 0; }
+
+  /* Quick Info sidebar items */
+  .quick-info-row {
+    display: flex; justify-content: space-between;
+    padding: 8px 0; border-bottom: 1px solid var(--light-gray);
+    font-size: 0.85rem;
+  }
+  .quick-info-row:last-child { border-bottom: none; }
+  .quick-info-row .label { color: var(--text-muted); }
+  .quick-info-row .value { color: var(--navy); font-weight: 600; }
+
+  /* Net Info Card */
+  .net-card {
+    background: var(--navy); border-radius: var(--radius-sm);
+    padding: 22px; margin-bottom: 16px;
+    position: relative; overflow: hidden;
+  }
+  .net-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 30%, rgba(0,212,170,0.12), transparent 50%);
+  }
+  .net-card * { position: relative; z-index: 1; }
+  .net-card h4 {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2.5px;
+    color: var(--warm-gold); font-weight: 600; margin-bottom: 12px;
+  }
+  .net-card .net-freq {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.4rem; color: var(--white);
+  }
+  .net-card .net-detail {
+    font-size: 0.82rem; color: rgba(255,255,255,0.5); margin-top: 4px;
+  }
+  .net-card .net-extra {
+    margin-top: 12px; padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.82rem; color: rgba(255,255,255,0.5);
+  }
+  .net-card .net-extra strong { color: var(--electric); }
+
+  /* Nav between issues */
+  .issue-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 0; border-top: 1px solid var(--light-gray);
+    margin-top: 40px;
+  }
+  .issue-nav a {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.88rem; color: var(--electric); text-decoration: none;
+    font-weight: 600; transition: 0.2s;
+  }
+  .issue-nav a:hover { color: var(--warm-gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .issue-layout { grid-template-columns: 1fr; }
+    .issue-sidebar { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div><div class="callsign">W9OG</div><div class="club-name">Tri-State Amateur Radio</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="repeaters.html">Repeaters</a>
+      <a href="ve-testing.html">VE Testing</a>
+      <a href="operating.html">Operating</a>
+      <a href="newsletter.html" class="active">Newsletter</a>
+      <a href="general-info.html">Info &amp; Officers</a>
+      <a href="mailto:info@w9og.net" class="nav-cta">Contact</a>
+    </div>
+    <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ══ PAGE HERO ══ -->
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> → <a href="newsletter.html">SPARKS Newsletter</a> → February 2026</div>
+    <h1>February 2026 <em>SPARKS</em></h1>
+    <p class="page-subtitle">Newsletter of the Tri-State Amateur Radio Society</p>
+  </div>
+</div>
+
+<!-- ══ ISSUE CONTENT ══ -->
+<section class="issue-section">
+  <div class="section-inner">
+    <div class="issue-layout">
+
+      <!-- MAIN COLUMN -->
+      <div class="issue-content">
+        <h2>In This Issue</h2>
+
+        <p>The February 2026 issue of SPARKS, newsletter of the Tri-State Amateur Radio Society, is now available. Download the full PDF from the attachments panel or read the highlights below.</p>
+
+        <div class="issue-callout">
+          <h4>🍽 Annual Banquet — February 12th</h4>
+          <p>The TARS regular February meeting is this Thursday, Feb 12th at 5:30 PM at Golden Corral. This is our annual banquet — see the full details in the attached SPARKS PDF!</p>
+        </div>
+
+        <div class="issue-callout gold">
+          <h4>📝 VE Testing — February 28th</h4>
+          <p>The next VE testing session is Saturday, February 28th at 9:00 AM Central Time at the Evansville Red Cross, 29 S Stockwell Rd. <a href="ve-testing.html">Pre-register at HamStudy.org</a>.</p>
+        </div>
+
+        <div class="issue-callout urgent">
+          <h4>⚠️ 2026 Dues Are Now Past Due!</h4>
+          <p>If you haven't renewed your TARS membership for 2026, please do so as soon as possible. A 2026 membership application form is attached below.</p>
+        </div>
+
+        <h2>Stay Connected</h2>
+
+        <p>For the latest TARS news between newsletters, check in to the <strong>Tri-State Emergency Net</strong> on the 146.79 repeater (PL 88.5), every Wednesday at 8:00 PM Central Time.</p>
+
+        <p>Also join the <strong>10m Ragchew Net</strong> on 28.355 MHz (±) at 8:30 PM, or following the conclusion of the 2m net.</p>
+
+        <p>Follow us on <a href="https://www.facebook.com/groups/TARSw9og" target="_blank">Facebook</a> for real-time updates, photos from club events, and discussions with fellow members.</p>
+
+        <!-- Issue Navigation -->
+        <div class="issue-nav">
+          <a href="#">← January 2026 SPARKS</a>
+          <a href="newsletter.html">All Issues</a>
+          <span style="color:var(--text-muted); font-size:0.85rem;">Latest Issue</span>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="issue-sidebar">
+
+        <!-- Attachments Card -->
+        <div class="sidebar-card">
+          <h4>Attachments</h4>
+          <ul class="attachment-list">
+            <li>
+              <a href="#" class="attachment-item">
+                <div class="att-icon pdf">📄</div>
+                <div class="att-info">
+                  <div class="att-name">2026-02-SPARKS.pdf</div>
+                  <div class="att-size">679 KB · Full newsletter</div>
+                </div>
+                <span class="att-dl">↓</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="attachment-item">
+                <div class="att-icon pdf">📄</div>
+                <div class="att-info">
+                  <div class="att-name">Board Meeting Minutes</div>
+                  <div class="att-size">147 KB · Jan 2026</div>
+                </div>
+                <span class="att-dl">↓</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="attachment-item">
+                <div class="att-icon pdf">📄</div>
+                <div class="att-info">
+                  <div class="att-name">2026 Work All TARS Officers</div>
+                  <div class="att-size">116 KB</div>
+                </div>
+                <span class="att-dl">↓</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="attachment-item">
+                <div class="att-icon pdf">📄</div>
+                <div class="att-info">
+                  <div class="att-name">Membership Application 2026</div>
+                  <div class="att-size">45 KB · PDF form</div>
+                </div>
+                <span class="att-dl">↓</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Net Info Card -->
+        <div class="net-card">
+          <h4>Weekly Nets</h4>
+          <div class="net-freq">146.790 MHz</div>
+          <div class="net-detail">PL 88.5 · Every Wednesday · 8:00 PM CT</div>
+          <div class="net-extra">
+            <strong>10m Ragchew:</strong> 28.355 MHz ±<br>
+            8:30 PM or after the 2m net
+          </div>
+        </div>
+
+        <!-- Quick Info Card -->
+        <div class="sidebar-card">
+          <h4>Issue Details</h4>
+          <div class="quick-info-row">
+            <span class="label">Issue</span>
+            <span class="value">February 2026</span>
+          </div>
+          <div class="quick-info-row">
+            <span class="label">Editor</span>
+            <span class="value">Chris Lantaff KE9YK</span>
+          </div>
+          <div class="quick-info-row">
+            <span class="label">Submit to</span>
+            <span class="value"><a href="mailto:sparks@w9og.net" style="color:var(--electric);">sparks@w9og.net</a></span>
+          </div>
+        </div>
+
+        <!-- Upcoming Events Card -->
+        <div class="sidebar-card">
+          <h4>Upcoming</h4>
+          <div class="quick-info-row">
+            <span class="label">Feb 12</span>
+            <span class="value">Annual Banquet</span>
+          </div>
+          <div class="quick-info-row">
+            <span class="label">Feb 28</span>
+            <span class="value">VE Testing</span>
+          </div>
+          <div class="quick-info-row">
+            <span class="label">Mar 12</span>
+            <span class="value">Monthly Meeting</span>
+          </div>
+          <div class="quick-info-row">
+            <span class="label">Mar 28</span>
+            <span class="value">VE Testing</span>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="callsign">W9OG</div><p>Tri-State Amateur Radio Society. Serving the Evansville tri-state area since 1947.</p></div>
+    <div class="footer-col"><h5>Club</h5><a href="about.html">About Us</a><a href="repeaters.html">Repeaters</a><a href="operating.html">Operating</a><a href="newsletter.html">Newsletter</a></div>
+    <div class="footer-col"><h5>Resources</h5><a href="http://www.hamtoberfest.com" target="_blank">HamtoberFest</a><a href="ve-testing.html">VE Testing</a><a href="files.html">TARS Files</a><a href="general-info.html">Officers &amp; Info</a></div>
+    <div class="footer-col"><h5>Connect</h5><a href="mailto:info@w9og.net">info@w9og.net</a><a href="https://www.facebook.com/groups/TARSw9og" target="_blank">Facebook Group</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 Tri-State Amateur Radio Society. All rights reserved.</span><div class="footer-socials"><a href="https://www.facebook.com/groups/TARSw9og" target="_blank">f</a><a href="mailto:info@w9og.net">✉</a></div></div>
+</footer>
+
+</body>
+</html>

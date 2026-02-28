@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>General Information &amp; Officers – TARS W9OG</title>
+<link rel="stylesheet" href="tars-shared.css">
+<style>
+  .officers-section { background: var(--white); }
+  .mailing-card {
+    background: var(--navy); border-radius: var(--radius);
+    padding: 36px; color: var(--white); margin-top: 32px;
+    display: flex; gap: 40px; align-items: center; flex-wrap: wrap;
+    position: relative; overflow: hidden;
+  }
+  .mailing-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 50%, rgba(0,212,170,0.1), transparent 50%);
+  }
+  .mailing-card * { position: relative; z-index: 1; }
+  .mailing-card h3 {
+    font-family: 'Instrument Serif', serif; font-size: 1.4rem;
+  }
+  .mailing-card p { color: rgba(255,255,255,0.55); font-size: 0.92rem; margin-top: 4px; }
+  .mailing-address {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-sm); padding: 16px 22px;
+    font-size: 0.92rem; color: rgba(255,255,255,0.8); line-height: 1.7;
+  }
+
+  .elmers-section { background: var(--cream); }
+  .elmer-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;
+  }
+  .elmer-card {
+    background: var(--white); border: 1px solid var(--light-gray);
+    border-radius: var(--radius-sm); padding: 22px 24px; transition: 0.3s;
+  }
+  .elmer-card:hover { border-color: var(--electric); }
+  .elmer-name { font-size: 1.05rem; color: var(--navy); font-weight: 600; }
+  .elmer-call { font-size: 0.85rem; color: var(--electric); font-weight: 500; }
+  .elmer-topics { font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; line-height: 1.55; }
+  .elmer-contact { font-size: 0.82rem; color: var(--text-muted); margin-top: 6px; }
+
+  .ares-section { background: var(--navy); color: var(--white); }
+  .ares-section .section-label { color: var(--warm-gold); }
+  .ares-section .section-title { color: var(--white); }
+  .ares-section .section-desc { color: rgba(255,255,255,0.5); }
+  .ares-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;
+  }
+  .ares-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-sm); padding: 22px; transition: 0.3s;
+  }
+  .ares-card:hover { background: rgba(255,255,255,0.08); }
+  .ares-card h4 { font-size: 0.95rem; color: var(--white); margin-bottom: 4px; }
+  .ares-card .ares-role {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--warm-gold); font-weight: 600; margin-bottom: 10px;
+  }
+  .ares-card p { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+
+  .committee-section { background: var(--white); }
+  .committee-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;
+  }
+  .committee-item {
+    background: var(--cream); border-radius: var(--radius-sm); padding: 16px 20px;
+  }
+  .committee-item .role {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--electric); font-weight: 600; margin-bottom: 4px;
+  }
+  .committee-item .name { font-size: 0.95rem; color: var(--navy); font-weight: 600; }
+  .committee-item .contact { font-size: 0.82rem; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div><div class="callsign">W9OG</div><div class="club-name">Tri-State Amateur Radio</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="repeaters.html">Repeaters</a>
+      <a href="ve-testing.html">VE Testing</a>
+      <a href="operating.html">Operating</a>
+      <a href="newsletter.html">Newsletter</a>
+      <a href="general-info.html" class="active">Info &amp; Officers</a>
+      <a href="mailto:info@w9og.net" class="nav-cta">Contact</a>
+    </div>
+    <button class="mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> → General Information</div>
+    <h1>Club <em>Officers &amp; Info</em></h1>
+    <p class="page-subtitle">Meet the leadership team and find essential club information including mailing address, meeting details, and volunteer contacts.</p>
+  </div>
+</div>
+
+<!-- ══ OFFICERS ══ -->
+<section class="officers-section">
+  <div class="section-inner">
+    <div class="section-label">2025 Leadership</div>
+    <h2 class="section-title">Club officers &amp; board</h2>
+    <p class="section-desc">TARS is led by elected officers and a dedicated board of directors.</p>
+
+    <div class="officer-grid">
+      <div class="officer-card">
+        <div class="officer-role">President</div>
+        <div class="officer-name">Scott Hibbs</div>
+        <div class="officer-call">KD4SIR</div>
+      </div>
+      <div class="officer-card">
+        <div class="officer-role">Vice President</div>
+        <div class="officer-name">Contact via email</div>
+        <div class="officer-call"><a href="mailto:info@w9og.net" style="color:var(--electric);">info@w9og.net</a></div>
+      </div>
+      <div class="officer-card">
+        <div class="officer-role">Treasurer</div>
+        <div class="officer-name">Contact via email</div>
+        <div class="officer-call"><a href="mailto:info@w9og.net" style="color:var(--electric);">info@w9og.net</a></div>
+      </div>
+      <div class="officer-card">
+        <div class="officer-role">Secretary</div>
+        <div class="officer-name">Contact via email</div>
+        <div class="officer-call"><a href="mailto:info@w9og.net" style="color:var(--electric);">info@w9og.net</a></div>
+      </div>
+      <div class="officer-card">
+        <div class="officer-role">W9OG License Trustee</div>
+        <div class="officer-name">Dave Julian</div>
+        <div class="officer-call">WB9YIG</div>
+      </div>
+    </div>
+
+    <!-- Mailing / Meeting Info -->
+    <div class="mailing-card">
+      <div style="flex:1; min-width:260px;">
+        <h3>Contact &amp; Meeting Info</h3>
+        <p>Meetings held 2nd Thursday monthly at 7:00 PM at the American Red Cross or Vanderburgh Co EMA facility. Family and visitors always welcome.</p>
+        <p style="margin-top:10px;">Email: <a href="mailto:info@w9og.net" style="color:var(--electric);">info@w9og.net</a></p>
+      </div>
+      <div class="mailing-address">
+        <strong>Mailing Address:</strong><br>
+        Tri-State Amateur Radio Society, W9OG<br>
+        PO Box 4521<br>
+        Evansville, IN 47724
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMMITTEES ══ -->
+<section class="committee-section">
+  <div class="section-inner">
+    <div class="section-label">Committees &amp; Contacts</div>
+    <h2 class="section-title">Key volunteers</h2>
+    <p class="section-desc">These dedicated volunteers keep TARS running. Contact them via email for specific inquiries.</p>
+
+    <div class="committee-grid">
+      <div class="committee-item">
+        <div class="role">Net Coordinator</div>
+        <div class="name">Chris Lantaff</div>
+        <div class="contact">KE9YK · 812.626.0069</div>
+      </div>
+      <div class="committee-item">
+        <div class="role">VE Team Liaison</div>
+        <div class="contact"><a href="mailto:vetesting@w9og.net" style="color:var(--electric);">vetesting@w9og.net</a> · 812.305.4100</div>
+      </div>
+      <div class="committee-item">
+        <div class="role">Red Cross Liaison</div>
+        <div class="contact"><a href="mailto:info@w9og.net" style="color:var(--electric);">info@w9og.net</a> · 812.305.4100</div>
+      </div>
+      <div class="committee-item">
+        <div class="role">Newsletter Editor</div>
+        <div class="name">Chris Lantaff</div>
+        <div class="contact">KE9YK</div>
+      </div>
+      <div class="committee-item">
+        <div class="role">HamtoberFest Chairman</div>
+        <div class="contact"><a href="mailto:hamfest@w9og.net" style="color:var(--electric);">hamfest@w9og.net</a></div>
+      </div>
+      <div class="committee-item">
+        <div class="role">Field Day Chairman 2025</div>
+        <div class="contact"><a href="mailto:info@w9og.net" style="color:var(--electric);">info@w9og.net</a></div>
+      </div>
+      <div class="committee-item">
+        <div class="role">McCutchan Award Chairman</div>
+        <div class="name">Chris Lantaff</div>
+        <div class="contact">KE9YK · 812.626.0069</div>
+      </div>
+      <div class="committee-item">
+        <div class="role">Webmaster</div>
+        <div class="contact"><a href="mailto:info@w9og.net" style="color:var(--electric);">info@w9og.net</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ARES/RACES ══ -->
+<section class="ares-section">
+  <div class="section-inner">
+    <div class="section-label">Emergency Services</div>
+    <h2 class="section-title">RACES &amp; ARES contacts</h2>
+    <p class="section-desc">TARS members serve in emergency communications roles across multiple counties.</p>
+
+    <div class="ares-grid">
+      <div class="ares-card">
+        <div class="ares-role">Vanderburgh County</div>
+        <h4>RACES Officer</h4>
+        <p>Chris Lantaff KE9YK · 812.626.0069</p>
+      </div>
+      <div class="ares-card">
+        <div class="ares-role">Warrick County</div>
+        <h4>RACES Officer</h4>
+        <p>812.480.1395</p>
+      </div>
+      <div class="ares-card">
+        <div class="ares-role">Warrick County</div>
+        <h4>ARES EC</h4>
+        <p>812.858.0333</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ELMERS ══ -->
+<section class="elmers-section">
+  <div class="section-inner">
+    <div class="section-label">Mentorship</div>
+    <h2 class="section-title">TARS Elmers</h2>
+    <p class="section-desc">Experienced operators ready to help new and upgrading hams. Don't hesitate to reach out!</p>
+
+    <div class="elmer-grid">
+      <div class="elmer-card">
+        <div class="elmer-name">John Small</div>
+        <div class="elmer-call">W9FHA</div>
+        <div class="elmer-topics">Kit building, antennas, QRP, general information</div>
+        <div class="elmer-contact">📞 (812) 401-0433</div>
+      </div>
+      <div class="elmer-card">
+        <div class="elmer-name">Contact via email</div>
+        <div class="elmer-call"><a href="mailto:info@w9og.net" style="color:var(--electric);">info@w9og.net</a></div>
+        <div class="elmer-topics">Digital computer, APRS, antennas</div>
+        <div class="elmer-contact">📞 812.205.6490</div>
+      </div>
+      <div class="elmer-card">
+        <div class="elmer-name">Contact via email</div>
+        <div class="elmer-call"><a href="mailto:info@w9og.net" style="color:var(--electric);">info@w9og.net</a></div>
+        <div class="elmer-topics">Antennas, emergency communication, general information</div>
+        <div class="elmer-contact">📞 812.626.0069</div>
+      </div>
+    </div>
+
+    <div class="info-box highlight" style="margin-top:32px;">
+      <h3>Want to be an Elmer?</h3>
+      <p>If you're an experienced ham willing to mentor newcomers, we'd love to add you to the list. Contact us at <a href="mailto:info@w9og.net" style="color:var(--electric);">info@w9og.net</a>.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="callsign">W9OG</div><p>Tri-State Amateur Radio Society. Serving the Evansville tri-state area since 1947.</p></div>
+    <div class="footer-col"><h5>Club</h5><a href="about.html">About Us</a><a href="repeaters.html">Repeaters</a><a href="operating.html">Operating</a><a href="newsletter.html">Newsletter</a></div>
+    <div class="footer-col"><h5>Resources</h5><a href="http://www.hamtoberfest.com" target="_blank">HamtoberFest</a><a href="ve-testing.html">VE Testing</a><a href="files.html">TARS Files</a><a href="general-info.html">Officers &amp; Info</a></div>
+    <div class="footer-col"><h5>Connect</h5><a href="mailto:info@w9og.net">info@w9og.net</a><a href="https://www.facebook.com/groups/TARSw9og" target="_blank">Facebook Group</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 Tri-State Amateur Radio Society. All rights reserved.</span><div class="footer-socials"><a href="https://www.facebook.com/groups/TARSw9og" target="_blank">f</a><a href="mailto:info@w9og.net">✉</a></div></div>
+</footer>
+</body>
+</html>
